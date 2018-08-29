@@ -1,0 +1,10 @@
+{
+  "verbose": false,
+  "ignore": ["node_modules", "build"],
+  "watch": [
+    "server/",
+    "config/",
+    "next.config.js"
+  ],
+  "ext": "js json"
+}

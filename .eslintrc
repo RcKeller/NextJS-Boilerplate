@@ -1,0 +1,25 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "extends": ["standard", "standard-react"],
+  "plugins": ["react"],
+  "globals": {
+    "React": true
+  },
+  "rules": {
+    "import/first": 0,
+    "global-require": 0,
+    "no-multi-spaces": 0,
+    "camelcase": 0,
+    "react/no-unused-prop-types": 0,
+    "react/react-in-jsx-scope": 0
+  }
+}
