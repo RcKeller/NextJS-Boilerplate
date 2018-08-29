@@ -45,7 +45,7 @@ export default class AppWrapper extends App {
     />,
     <NavItem
       key='Onboarding'
-      href='/employee/new'
+      href='/employee/onboard'
       primaryText='Onboarding'
       rightIcon={<FontIcon>person_add</FontIcon>}
     />

@@ -12,10 +12,12 @@ const webpack = (config, options) => {
   */
   Object.assign(config.resolve.alias, {
     config: path.resolve(__dirname, 'config/'),
+    // Named tools because 'util' is a native package
     tools: path.resolve(__dirname, 'tools/'),
     containers: path.resolve(__dirname, 'containers/'),
     components: path.resolve(__dirname, 'components/'),
-    constants: path.resolve(__dirname, 'constants/'),
+    // Named 'types' because 'constant' is a deprecated node API
+    types: path.resolve(__dirname, 'types/'),
     styles: path.resolve(__dirname, 'styles/')
   })
   // DO NOT REMOVE

@@ -15,6 +15,8 @@ module.exports = (server, config) => {
   const API = new Router()
   middleware.forEach(Middleware => new Middleware(API))
   controllers.forEach(Controller => new Controller(API))
+  // 404 Route for any mismatched routes within /api/<version>/
+  API.get('*', (req, res) => res.status(404).json(null))
 
   // Prefix the API's routes
   server.use(`/${prefix}/v${version}`, API)

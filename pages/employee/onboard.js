@@ -4,13 +4,13 @@ import Helmet from 'react-helmet'
 // import axios from 'axios'
 // import { API } from 'tools'
 
-export default class EMPLOYEE_PAGE extends React.Component {
+export default class EMPLOYEE_ONBOARDING_PAGE extends React.Component {
   static propTypes = {}
   static defaultProps = {}
   render () {
     return (
       <article>
-        <Helmet title='Employeee <id>' />
+        <Helmet title='Create New Employeee' />
         <section>
           <h1>Create New Employee</h1>
           <p>...</p>

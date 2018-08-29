@@ -1,7 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-export default class INDEX extends React.Component {
+export default class INDEX_PAGE extends React.Component {
   static propTypes = {}
   static defaultProps = {}
   render () {
