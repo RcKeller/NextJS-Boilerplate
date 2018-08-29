@@ -1,0 +1,16 @@
+@import '~react-md/src/scss/react-md';
+
+/*
+REACT-MD THEME:
+https://react-md.mlaursen.com/customization/themes
+https://react-md.mlaursen.com/customization/theme-builder
+https://react-md.mlaursen.com/sassdoc/
+*/
+
+$md-light-theme: true; // optional for light theme
+$md-primary-color: $md-indigo-500;
+$md-secondary-color: $md-red-a-700;
+//  Disable material design color compliance warnings
+$md-colors-warn-md: false;
+
+@include react-md-everything;

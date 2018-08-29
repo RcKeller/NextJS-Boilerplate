@@ -1,0 +1,12 @@
+# Version control
+node_modules/
+package-lock.json
+yarn.lock
+# Config files
+config/*.js
+config/*.json
+config/*.pem
+config/*.ppk
+# Build folders
+build/
+coverage/

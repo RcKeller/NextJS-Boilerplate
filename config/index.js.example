@@ -6,5 +6,12 @@ module.exports = {
     https: 443,
     http: 80,
     dev: 3000
+  },
+  api: {
+    prefix: 'api',
+    version: 1
+  },
+  cookie: {
+    secret: 'plz-invite-keller-onsite'
   }
 }

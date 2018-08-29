@@ -1,17 +1,18 @@
 import React from 'react'
-import Link from 'next/link'
+import Helmet from 'react-helmet'
 
-export default () => (
-  <ul>
-    <li><Link href='/b' as='/a'><a>a</a></Link></li>
-    <li><Link href='/a' as='/b'><a>b</a></Link></li>
-    <li>
-      <Link
-        href={{pathname: '/posts', query: { id: '2' }}}
-        as='/posts/2'
-      >
-        <a>post #2</a>
-      </Link>
-    </li>
-  </ul>
-)
+export default class INDEX extends React.Component {
+  static propTypes = {}
+  static defaultProps = {}
+  render () {
+    return (
+      <article>
+        <Helmet title='Home - Chicago HR System' />
+        <section>
+          <h1>Welcome to Chigago HR</h1>
+          <p>Please use the navigation bar.</p>
+        </section>
+      </article>
+    )
+  }
+}

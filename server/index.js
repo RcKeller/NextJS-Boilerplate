@@ -2,25 +2,24 @@
 require('./exceptions/process')
 const next = require('next')
 const express = require('express')
-const { dev, ports } = require('../config')
+const config = require('../config')
+const { Express, HTTP } = require('./setup')
+const { API, React } = require('./routes')
 
-const ReactEngine = next({ dev })
+const ReactEngine = next({ dev: config.dev })
 ReactEngine
   .prepare()
   .then(() => {
     // Initialize express instance and configure parsers / sessionware
     const server = express()
-    const handle = ReactEngine.getRequestHandler()
-    const port = dev ? ports.dev : ports.http
+    Express(server, config)
 
-    server.get('*', (req, res) => {
-      return handle(req, res)
-    })
+    // Initialize routes - API, client pages, etc
+    API(server, config)
+    React(server, config, ReactEngine)
 
-    server.listen(port, (err) => {
-      if (err) throw err
-      console.log(`> Ready on http://localhost:${port}`)
-    })
+    // Serve content via HTTP or HTTPS
+    HTTP(server, config)
   })
   .catch(require('./exceptions/next'))
 
