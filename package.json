@@ -11,6 +11,8 @@
     "lint": "node node_modules/eslint/bin/eslint.js ."
   },
   "dependencies": {
+    "ag-grid": "^18.1.2",
+    "ag-grid-react": "^18.1.0",
     "apicache": "^1.2.1",
     "auto-bind": "^1.2.1",
     "axios": "^0.18.0",
@@ -48,7 +50,9 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-standard": "^3.1.0",
+    "file-loader": "^2.0.0",
     "next-compose-plugins": "^2.1.1",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "url-loader": "^1.1.1"
   }
 }

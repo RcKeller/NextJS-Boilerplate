@@ -20,6 +20,21 @@ const webpack = (config, options) => {
     types: path.resolve(__dirname, 'types/'),
     styles: path.resolve(__dirname, 'styles/')
   })
+
+  /*
+  FILE / ASSET IMPORTS
+  Allows you to specify fonts, icons etc via CSS
+  */
+  config.module.rules.push({
+    test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+    use: {
+      loader: 'url-loader',
+      options: {
+        limit: 100000
+      }
+    }
+  })
+
   // DO NOT REMOVE
   return config
 }

@@ -6,6 +6,8 @@ import axios from 'axios'
 import { API } from 'tools'
 import { EMPLOYEE } from 'types'
 
+import { AgGridReact } from 'ag-grid-react'
+
 export default class EMPLOYEE_DASHBOARD_PAGE extends React.Component {
   static async getInitialProps ({ req, query }) {
     let props = {}
@@ -23,6 +25,21 @@ export default class EMPLOYEE_DASHBOARD_PAGE extends React.Component {
   static defaultProps = {
     employees: []
   }
+  columns = [
+    {
+      headerName: 'Name',
+      field: 'name',
+      suppressKeyboardEvent: ({ event, node }) => {
+        if (event.key === 'Enter') {
+          console.log('Route Me', event, node)
+        }
+      }
+    },
+    {
+      headerName: 'Title',
+      field: 'job_titles'
+    }
+  ]
   render () {
     const { employees } = this.props
     console.log(employees)
@@ -31,7 +48,16 @@ export default class EMPLOYEE_DASHBOARD_PAGE extends React.Component {
         <Helmet title='Dashboard - Employees' />
         <section>
           <h1>Employee Dashboard</h1>
-          <p>{JSON.stringify(employees)}</p>
+          <div className='ag-theme-balham' style={{ height: '50em', maxHeight: '70vh' }}>
+            <AgGridReact
+              columnDefs={this.columns}
+              rowData={employees}
+              enableSorting
+              enableFilter
+              pagination
+              editType='fullRow'
+            />
+          </div>
         </section>
       </article>
     )
