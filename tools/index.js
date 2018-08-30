@@ -8,5 +8,6 @@ Important notes:
 */
 module.exports = {
   api: require('./api'),
-  API: require('./api')
+  API: require('./api'),
+  format: require('./format')
 }
