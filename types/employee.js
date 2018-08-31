@@ -7,11 +7,11 @@ Contains enums and a PropType for this data structure
 const enums = {}
 
 const PropType = PropTypes.shape({
-  department: PropTypes.string.isRequired,
+  department: PropTypes.string,
   employee_annual_salary: PropTypes.number,
-  job_titles: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired
+  job_titles: PropTypes.string,
+  id: PropTypes.number,
+  name: PropTypes.string
 })
 
 export default { enums, PropType }

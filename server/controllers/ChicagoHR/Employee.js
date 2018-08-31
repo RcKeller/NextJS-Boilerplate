@@ -29,7 +29,7 @@ module.exports = class Employee extends ChicagoHR {
       // const { page, per_page } = req.params
       const { data } = await axios.get(`${this.base}`)
       const employees = Array.isArray(data)
-        ? data.map(employee => this.transformEmployee(employee))
+        ? data.map(employee => this.transformFromEmployee(employee))
         : []
       res.status(200).json(employees)
     } catch (err) {
@@ -47,7 +47,7 @@ module.exports = class Employee extends ChicagoHR {
     try {
       const { id } = req.params
       const { data } = await axios.get(`${this.base}/${id}`)
-      const employee = this.transformEmployee(data)
+      const employee = this.transformFromEmployee(data)
       res.status(200).json(employee)
     } catch (err) {
       console.error(err)
@@ -62,8 +62,11 @@ module.exports = class Employee extends ChicagoHR {
   */
   async createEmployee (req, res) {
     try {
-      const { data } = await axios.get(`${this.base}`, { data: req.body })
-      const employee = this.transformEmployee(data)
+      let body = this.transformToEmployee(req.body)
+      delete body.id //  Prevents misuse
+      console.log('POSTING:', body)
+      const { data } = await axios.post(`${this.base}`, body)
+      const employee = this.transformFromEmployee(data)
       res.status(200).json(employee)
     } catch (err) {
       console.error(err)
@@ -98,7 +101,8 @@ module.exports = class Employee extends ChicagoHR {
     "job_titles": "string"
   }
   */
-  transformEmployee ({ id, name, department, employee_annual_salary, job_titles }) {
+  // Transform from the API to client, coercing types
+  transformFromEmployee ({ id, name, department, employee_annual_salary, job_titles }) {
     // API returns salary as a string. Coerce to float
     employee_annual_salary = Number.parseFloat(employee_annual_salary || 0)
     // job_titles is usually a string (misleading namespace), but we should support coercion anyways
@@ -107,6 +111,18 @@ module.exports = class Employee extends ChicagoHR {
     name = titleCase(name).replace(' ', ', ')
     department = titleCase(department)
     job_titles = titleCase(job_titles)
+    return { id, name, department, employee_annual_salary, job_titles }
+  }
+
+  // Transform from the client to API, enforcing string structure
+  transformToEmployee ({ id, name, department, employee_annual_salary, job_titles }) {
+    // Coerce numeric values
+    id = id ? Number.parseInt(id) : undefined
+    employee_annual_salary = Number.parseFloat(employee_annual_salary || 0)
+    // These are all uppercase on the API side
+    name = name ? name.toUpperCase() : ''
+    department = department ? department.toUpperCase() : ''
+    job_titles = job_titles ? job_titles.toUpperCase() : ''
     return { id, name, department, employee_annual_salary, job_titles }
   }
 }

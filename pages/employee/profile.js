@@ -25,7 +25,7 @@ export default class EMPLOYEE_PROFILE_PAGE extends React.Component {
   }
   static propTypes = {
     employee: EMPLOYEE.PropType,
-    id: PropTypes.string.isRequired
+    id: PropTypes.number.isRequired
   }
   static defaultProps = {
     employee: {},
@@ -72,13 +72,10 @@ export default class EMPLOYEE_PROFILE_PAGE extends React.Component {
       <article>
         <Helmet title={`Employeee - ${id}`} />
         <Grid>
-          <Cell size={12}>
-            <h1>Employee Profile</h1>
-          </Cell>
-          <Cell size={6} tabletSize={12} phoneSize={12}>
+          <Cell className='margin-auto' size={6} tabletSize={12} phoneSize={12}>
             <ErrorBoundary title='Employee Record'>
               <Card className='md-block-centered'>
-                <CardTitle title={employee.name} subtitle={`${employee.job_titles}, ${employee.department}`} />
+                <CardTitle title={employee.name || 'Anonymous'} subtitle={`${employee.job_titles}, ${employee.department}`} />
                 <CardText>
                   <p>{loremIpsum()}</p>
                   <Divider />

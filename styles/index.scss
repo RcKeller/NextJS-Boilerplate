@@ -2,10 +2,16 @@
 FONTS
 */
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
+
 /*
 VENDOR STYLES
 SASS based libs (react-md, ag-grid) are configured locally
 */
 @import '~nprogress/nprogress.css';
 @import 'react-md';
-@import 'ag-grid';  
+@import 'ag-grid';
+
+/*
+CUSTOM STYLES
+*/
+@import 'helpers';
