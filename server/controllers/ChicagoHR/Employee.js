@@ -27,14 +27,15 @@ module.exports = class Employee extends ChicagoHR {
   async getEmployees (req, res) {
     try {
       // const { page, per_page } = req.params
-      const { data } = await axios.get(`${this.base}`)
+      const { data } = await axios
+        .get(`${this.base}`)
+        .catch(Error)
       const employees = Array.isArray(data)
         ? data.map(employee => this.transformFromEmployee(employee))
         : []
       res.status(200).json(employees)
     } catch (err) {
-      console.error(err)
-      res.status(500).json(err)
+      res.status(err.status || 500).json(err)
     }
   }
 
@@ -46,12 +47,13 @@ module.exports = class Employee extends ChicagoHR {
   async getEmployee (req, res) {
     try {
       const { id } = req.params
-      const { data } = await axios.get(`${this.base}/${id}`)
+      const { data } = await axios
+        .get(`${this.base}/${id}`)
+        .catch(Error)
       const employee = this.transformFromEmployee(data)
       res.status(200).json(employee)
     } catch (err) {
-      console.error(err)
-      res.status(500).json(err)
+      res.status(err.status || 500).json(err)
     }
   }
 
@@ -64,13 +66,13 @@ module.exports = class Employee extends ChicagoHR {
     try {
       let body = this.transformToEmployee(req.body)
       delete body.id //  Prevents misuse
-      console.log('POSTING:', body)
-      const { data } = await axios.post(`${this.base}`, body)
+      const { data } = await axios
+        .post(`${this.base}`, body)
+        .catch(Error)
       const employee = this.transformFromEmployee(data)
       res.status(200).json(employee)
     } catch (err) {
-      console.error(err)
-      res.status(500).json(err)
+      res.status(err.status || 500).json(err)
     }
   }
 

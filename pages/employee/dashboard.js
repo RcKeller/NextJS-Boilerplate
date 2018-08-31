@@ -3,22 +3,23 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import Router from 'next/router'
 import axios from 'axios'
-import { API } from 'tools'
+import { API, routing } from 'tools'
 import { EMPLOYEE } from 'types'
 
 import { Grid, Cell } from 'react-md'
+import { AgGridReact } from 'ag-grid-react'
 import { ErrorBoundary } from 'containers'
 
-import { AgGridReact } from 'ag-grid-react'
-
 export default class EMPLOYEE_DASHBOARD_PAGE extends React.Component {
-  static async getInitialProps ({ req, query }) {
+  static async getInitialProps ({ req, res, query }) {
     let props = {}
     try {
-      const { data } = await axios(`${API(req)}/employee`)
+      const data = await axios
+        .get(`${API(req)}/employee`)
+        .then(res => res.data)
       props.employees = data
     } catch (err) {
-      console.error('pages/employee/dashboard.js')
+      routing.redirect('/', res, err)
     }
     return props
   }
@@ -76,7 +77,7 @@ export default class EMPLOYEE_DASHBOARD_PAGE extends React.Component {
           </Cell>
           <Cell size={12}>
             <ErrorBoundary title='Employee Datatable'>
-              <div className='ag-theme-balham' style={{ height: '50em', maxHeight: '70vh' }}>
+              <div id='grid-wrapper' className='ag-theme-balham'>
                 <AgGridReact
                   columnDefs={this.columns}
                   rowData={employees}

@@ -2,3 +2,8 @@
 $ag-icons-path: '~ag-grid/src/styles/icons/';
 @import '~ag-grid/src/styles/ag-grid.scss';
 @import '~ag-grid/src/styles/ag-theme-balham.scss';
+
+#grid-wrapper {
+  height: 50em;
+  max-height: 70vh;
+}
