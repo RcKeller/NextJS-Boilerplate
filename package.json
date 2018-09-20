@@ -1,7 +1,7 @@
 {
-  "name": "hr-dashboard",
-  "description": "Coding challenge for a startup",
-  "repository": "https://github.com/RcKeller/HR-dashboard",
+  "name": "nextjs-boilerplate",
+  "description": "MERN Boilerplate based on NextJS",
+  "repository": "https://github.com/RcKeller/NextJS-Boilerplate",
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
