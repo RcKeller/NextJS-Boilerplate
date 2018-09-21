@@ -11,14 +11,21 @@ const webpack = (config, options) => {
   NOTE: This is only for the frontend
   */
   Object.assign(config.resolve.alias, {
-    config: path.resolve(__dirname, 'config/'),
-    // Named tools because 'util' is a native package
-    tools: path.resolve(__dirname, 'tools/'),
+    /*
+    CLIENT-SIDE
+    ES Module format (import/export syntax)
+    */
+    pages: path.resolve(__dirname, 'pages/'),
     containers: path.resolve(__dirname, 'containers/'),
     components: path.resolve(__dirname, 'components/'),
-    // Named 'types' because 'constant' is a deprecated node API
-    types: path.resolve(__dirname, 'types/'),
-    styles: path.resolve(__dirname, 'styles/')
+    styles: path.resolve(__dirname, 'styles/'),
+    enums: path.resolve(__dirname, 'enums/'),
+    /*
+    UNIVERSAL
+    CommonJS format (module.exports/require)
+    */
+    config: path.resolve(__dirname, 'config/'),
+    tools: path.resolve(__dirname, 'tools/') //  Named because 'util' is reserved
   })
 
   /*
@@ -46,6 +53,7 @@ for how React is rendered by the server renderer under the hood
 https://nextjs.org/docs/#custom-configuration
 */
 const compose = require('next-compose-plugins')
+const CSS = require('@zeit/next-css')
 const SASS = require('@zeit/next-sass')
 
 module.exports = compose(
@@ -53,6 +61,7 @@ module.exports = compose(
   NEXTJS Plugins
   */
   [
+    CSS,
     SASS
   ],
   /*

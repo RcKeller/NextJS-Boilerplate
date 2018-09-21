@@ -7,7 +7,5 @@ Important notes:
   are not actual keywords in NodeJS (yet)
 */
 module.exports = {
-  api: require('./api'),
-  API: require('./api'),
-  format: require('./format')
+  API: require('./API')
 }

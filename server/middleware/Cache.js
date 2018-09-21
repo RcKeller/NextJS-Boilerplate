@@ -1,4 +1,4 @@
-const cache = require('apicache').middleware
+const { middleware: cache } = require('apicache')
 
 /*
 Caches successful request data for 5 minutes.

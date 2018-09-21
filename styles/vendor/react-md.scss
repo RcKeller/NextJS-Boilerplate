@@ -7,9 +7,10 @@ https://react-md.mlaursen.com/customization/theme-builder
 https://react-md.mlaursen.com/sassdoc/
 */
 
+// Colors based on RedHat: https://brand.redhat.com/elements/color/
 $md-light-theme: true; // optional for light theme
-$md-primary-color: $md-indigo-500;
-$md-secondary-color: $md-red-a-700;
+$md-primary-color: #820000;
+$md-secondary-color: #004153;
 //  Disable material design color compliance warnings
 $md-colors-warn-md: false;
 
