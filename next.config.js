@@ -3,7 +3,11 @@ const path = require('path')
 /*
 WEBPACK CONFIG
 */
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
 const webpack = (config, options) => {
+  const { ANALYZE } = process.env
+  const { isServer } = options
   /*
   ALIASES:
   Allow you to import common folders as if they are modules, e.g.
@@ -27,7 +31,6 @@ const webpack = (config, options) => {
     config: path.resolve(__dirname, 'config/'),
     tools: path.resolve(__dirname, 'tools/') //  Named because 'util' is reserved
   })
-
   /*
   FILE / ASSET IMPORTS
   Allows you to specify fonts, icons etc via CSS
@@ -41,7 +44,17 @@ const webpack = (config, options) => {
       }
     }
   })
-
+  /*
+  ANALYZE:
+  Add the webpack bundle analyzer
+  */
+  if (ANALYZE) {
+    config.plugins.push(new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      analyzerPort: isServer ? 8888 : 8889,
+      openAnalyzer: true
+    }))
+  }
   // DO NOT REMOVE
   return config
 }

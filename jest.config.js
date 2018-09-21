@@ -16,7 +16,7 @@ module.exports = {
     // 'styles(.*)$': '<rootDir>/styles$1',
     'enums(.*)$': '<rootDir>/enums$1',
     'tools(.*)$': '<rootDir>/tools$1',
-    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
+    '\\.(css|less|sass|scss)$': 'identity-obj-proxy'
   },
   verbose: false
 }

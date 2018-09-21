@@ -40,7 +40,8 @@
     "react-dom": "^16.4.2",
     "react-helmet": "^5.2.0",
     "react-md": "^1.6.1",
-    "react-table": "^6.8.6"
+    "react-table": "^6.8.6",
+    "webpack-bundle-analyzer": "^3.0.2"
   },
   "devDependencies": {
     "@zeit/next-css": "^1.0.0",
