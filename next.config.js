@@ -3,7 +3,11 @@ const path = require('path')
 /*
 WEBPACK CONFIG
 */
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
 const webpack = (config, options) => {
+  const { ANALYZE } = process.env
+  const { isServer } = options
   /*
   ALIASES:
   Allow you to import common folders as if they are modules, e.g.
@@ -11,16 +15,22 @@ const webpack = (config, options) => {
   NOTE: This is only for the frontend
   */
   Object.assign(config.resolve.alias, {
-    config: path.resolve(__dirname, 'config/'),
-    // Named tools because 'util' is a native package
-    tools: path.resolve(__dirname, 'tools/'),
+    /*
+    CLIENT-SIDE
+    ES Module format (import/export syntax)
+    */
+    pages: path.resolve(__dirname, 'pages/'),
     containers: path.resolve(__dirname, 'containers/'),
     components: path.resolve(__dirname, 'components/'),
-    // Named 'types' because 'constant' is a deprecated node API
-    types: path.resolve(__dirname, 'types/'),
-    styles: path.resolve(__dirname, 'styles/')
+    styles: path.resolve(__dirname, 'styles/'),
+    enums: path.resolve(__dirname, 'enums/'),
+    /*
+    UNIVERSAL
+    CommonJS format (module.exports/require)
+    */
+    config: path.resolve(__dirname, 'config/'),
+    tools: path.resolve(__dirname, 'tools/') //  Named because 'util' is reserved
   })
-
   /*
   FILE / ASSET IMPORTS
   Allows you to specify fonts, icons etc via CSS
@@ -34,7 +44,17 @@ const webpack = (config, options) => {
       }
     }
   })
-
+  /*
+  ANALYZE:
+  Add the webpack bundle analyzer
+  */
+  if (ANALYZE) {
+    config.plugins.push(new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      analyzerPort: isServer ? 8888 : 8889,
+      openAnalyzer: true
+    }))
+  }
   // DO NOT REMOVE
   return config
 }
@@ -46,6 +66,7 @@ for how React is rendered by the server renderer under the hood
 https://nextjs.org/docs/#custom-configuration
 */
 const compose = require('next-compose-plugins')
+const CSS = require('@zeit/next-css')
 const SASS = require('@zeit/next-sass')
 
 module.exports = compose(
@@ -53,6 +74,7 @@ module.exports = compose(
   NEXTJS Plugins
   */
   [
+    CSS,
     SASS
   ],
   /*

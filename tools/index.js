@@ -7,8 +7,12 @@ Important notes:
   are not actual keywords in NodeJS (yet)
 */
 module.exports = {
+<<<<<<< HEAD
   api: require('./api'),
   API: require('./api'),
   format: require('./format'),
   routing: require('./routing')
+=======
+  API: require('./API')
+>>>>>>> next-v7
 }

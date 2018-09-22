@@ -11,6 +11,7 @@ import { NavItem } from 'components'
 import 'styles/index.scss'
 
 export default class AppWrapper extends App {
+  // ENV: SSR
   static async getInitialProps ({ Component, router, ctx }) {
     let pageProps = {}
     if (Component.getInitialProps) {
@@ -32,32 +33,42 @@ export default class AppWrapper extends App {
   }
   navItems = [
     <NavItem
-      key='Home'
+      key='index'
       href='/'
-      primaryText='Homepage'
+      as='/'
+      primaryText='Home'
       rightIcon={<FontIcon>home</FontIcon>}
     />,
     <NavItem
-      key='Dashboard'
-      href='/employee/dashboard'
-      primaryText='Dashboard'
+      key='cve'
+      href='/cve/dashboard'
+      as='/cve/dashboard'
+      primaryText='CVE Dashboard'
       rightIcon={<FontIcon>web</FontIcon>}
     />,
     <NavItem
-      key='Onboarding'
-      href='/employee/onboard'
-      primaryText='Onboarding'
-      rightIcon={<FontIcon>person_add</FontIcon>}
+      key='source'
+      external
+      href='//github.com/RcKeller/NextJS-Boilerplate'
+      primaryText='Source Code'
+      rightIcon={<FontIcon>code</FontIcon>}
+    />,
+    <NavItem
+      key='docs'
+      external
+      href='//access.redhat.com/labs/securitydataapi/'
+      primaryText='API Docs'
+      rightIcon={<FontIcon>link</FontIcon>}
     />
   ]
   render () {
     const { Component, pageProps } = this.props
     return (
       <Container>
-        <Helmet titleTemplate='%s - HR Dashboard' />
+        <Helmet titleTemplate='%s - Vuln. Dashboard' />
         <NavigationDrawer
           contentId='app'
-          toolbarTitle='Chicago HR Dashboard'
+          toolbarTitle='RedHat Vulnerability Dashboard'
           drawerTitle='Navigation'
           mobileDrawerType={NavigationDrawer.DrawerTypes.TEMPORARY}
           tabletDrawerType={NavigationDrawer.DrawerTypes.FLOATING}

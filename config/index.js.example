@@ -9,7 +9,7 @@ module.exports = {
   },
   api: {
     prefix: 'api',
-    version: 1
+    version: 'v1'
   },
   cookie: {
     secret: 'plz-invite-keller-onsite'

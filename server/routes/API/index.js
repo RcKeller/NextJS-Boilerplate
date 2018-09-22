@@ -19,5 +19,5 @@ module.exports = (server, config) => {
   API.get('*', (req, res) => res.status(404).json(null))
 
   // Prefix the API's routes
-  server.use(`/${prefix}/v${version}`, API)
+  server.use(`/${prefix}/${version}`, API)
 }

@@ -6,7 +6,9 @@ e.g. pages/dashboard.js -> /dashboard
 */
 module.exports = (server, config, engine) => {
   const handle = engine.getRequestHandler()
-  // Next.JS SSR handler
-  // https://github.com/mluberry/nextjs-express
+  /*
+  Next.JS SSR handler
+  https://github.com/mluberry/nextjs-express
+  */
   server.get('*', (req, res) => handle(req, res))
 }

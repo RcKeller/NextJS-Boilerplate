@@ -1,13 +1,10 @@
-# HR-dashboard
+# NextJS-Boilerplate
 
-Coding challenge completed as part of my candidacy with an unnamed startup. This is a react-based application that interacts with a basic API to demonstrate simple CRUD operations. When my candidacy ends I will turn this into a standalone boilerplate
+An unopinionated yet extensible starter fullstack boilerplate based on [NextJS 7](https://nextjs.org/blog/next-7/). This provides the build infrastructure and structure necessary to make any kind of React application, with or without an internal API. Testing with [Jest/Enzyme](https://airbnb.io/enzyme/docs/guides/jest.html) and [Bundle Analysis](https://www.npmjs.com/package/webpack-bundle-analyzer) comes built-in.
 
-Key requirements paraphrased:
-- Dashboard view with a datatable supporting keyboard navigation, sorting and filtering
-- Profile view that allows users to cycle through records with arrow keys
-- Onboarding page for creating new employee records
+The server includes a lightweight API controller connected to the [RedHat Security Data API](https://access.redhat.com/documentation/en-us/red_hat_security_data_api/0.1/html/red_hat_security_data_api/). You can easily add your own controllers and database connections using this as a foundation.
 
-The application should be mobile responsive and "production ready". The deadline is 1 week, but I had limited time to work on this due to other interviews.
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
 ## Quick Start
 
@@ -36,18 +33,29 @@ npm run start
 # ideally w/ a NGINX reverse proxy as well
 ```
 
+## Test Suite / Bundle Analyzer
+
+```bash
+# Run the whole suite in different modes
+npm run test
+npm run test:coverage
+npm run test:watch
+# Or test components individually
+npm run test:single "Dashboard"
+# Analyze dev & prod bundles
+npm run analyze
+```
+
 ## Application Structure
 
 ```raw
 .
+├── __tests__/                        Test suite using Jest/Enzyme (can also test server)
 ├── components/                       Reusable stateless components
 ├── config/
 │   ├── index.js                      YOU NEED TO MAKE THIS
 │   └── index.js.example              Example application config
 ├── containers/                       Reusable stateful components
-├── next.config.js                    NextJS / Webpack configuration
-├── nodemon.json                      Nodemon config (for backend reloading)
-├── package.json                      Application manifest
 ├── pages
 │   ├── _app.js                       React UI wrapper, equivalent to "App.js" in CRA
 │   ├── _document.js                  NextJS wrapper, provides raw HTML used in SSR
@@ -62,38 +70,40 @@ npm run start
 ├── static/                           Static content to serve
 ├── styles/                           SASS styles
 ├── tools/                            Common client & server side tools
-└── types/                            Enums and PropTypes
+├── enums/                            Enums and PropTypes
+├── .babelrc                          Babel 7 feature declaration
+├── .eslintc                          Linter config (defaults to standard style)
+├── jest.config.js                    Test environment config
+├── jest.setup.js                     Bootstrapping script for Jest/Enzyme
+├── next.config.js                    NextJS / Webpack configuration
+├── nodemon.json                      Nodemon config (for backend reloading)
+└── package.json                      Application manifest
 ```
 
 ### Build Infrastructure
 
-[NextJS](https://nextjs.org) is used as boilerplate for our webpack config, SSR setup, and paramaterized routing. This includes hot-reloading for the client side, but we enable it for the server by using [Nodemon](https://github.com/remy/nodemon) to monitor changes to the `server/`. The [configuration file](next.js.config) is fairly minimal, adding the necessary loaders to support SASS, fonts/images, and aliases like `components` and `tools` to replace relative imports on the client side.
+[NextJS](https://nextjs.org) is used as boilerplate for our webpack config, SSR setup, and paramaterized routing. This includes hot-reloading for the client side, but we enable it for the server by using [Nodemon](https://github.com/remy/nodemon) to monitor changes to the `server/`. The [configuration file](next.js.config) is fairly minimal, adding the necessary loaders to support SASS, fonts/images, and aliases like `components` and `enums` to replace relative imports on the client side.
 
 The UI makes heavy use of [React-MD](https://react-md.mlaursen.com), an unopinionated SASS-based UI library. It's lighter and more extensible than Material-UI, but lacks the controlled features, events and API that Material-UI often provides with its stateful components. As a result, much of the code here handles low level operations like event handling, form data processing, etc.
-[Ag-grid](https://www.ag-grid.com/react-getting-started/)'s react variant is being used for datatables due to its high performance and feature-complete API. Even though this is commercialized, it still offers more features than other libraries like adazzle's react-data-grid or react-bootstrap-table. The fact that it isn't entirely based on react actual works in our favor because in the future more advanced operations like lazy loading pagination are easier to incorporate.
 
 Every `page/` component has an extra lifecycle method called `getInitialProps`. This is an async function that runs universally (both client and server) and is a blocking event that collects data before the page is rendered. This pattern allows us to continue writing declarative react without having to test the truthiness of our props constantly, because we can now assume the data has loaded. If the page fails to load API data, the user is redirected before anything renders and errors out. I've included error boundaries just in case, though (React 16's version of a try/catch).
 
-### Employee API
+## API
 
-I've made an express API for interacting with our third party API. Why?
-- Queries can be cached and preloaded in pages that are rendered by the server, skipping some large client side API calls
-- The cached results from paginated APIs could be delivered via a stream over a websocket, lowering TTL (TODO)
-- The data has to be transformed going to/from the API to ensure integrity and typecheck fields (e.g. salary should be a float, not string)
-- Our server should account for outages and slowdowns (the HR API seems to be rate limited).
+### Vulnerabilities and Exposures
+**Source**: [RedHat Security Data API](https://access.redhat.com/documentation/en-us/red_hat_security_data_api/0.1/html/red_hat_security_data_api/)
 
-The express API operates in a fairly similar fashion, standard REST.
+This API allows the server and users alike to request information about any outstanding vulnerability that has been published (CVE or CVRF). Records can be queried in mass, or individually given a CVE ID.
 
-```raw
-http://localhost:3000/api/v1/employee/
-http://localhost:3000/api/v1/employee/<id>
+Examples:
+```
+http://localhost:3000/api/v1/cve
+http://localhost:3000/api/v1/cve/CVE-2016-3706
 ```
 
-## TODO
+## Production Considerations
 
-I've run out of time for this exercise, but would be glad to dedicate more to the final features if I do move forward in the process.
-
-- Pagination and data streaming for `/employee/dashboard`.
-- Jest/Enzyme testing of UI components.
-- Implement typechecking solutions (Flow / Typescript)
-- State management and client-side caching (e.g. Redux and Redux-Query)
+- Self-signed HTTPS certificates are included, but in production, you should use a cert authority (shout-out to LetsEncrypt) or, even better, an [NGINX reverse-proxy](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04)
+- [Responses are cached](/server/middleware/Cache.js) very aggressively so we can be kind to RedHat. Be sure to re-evaluate the usage of a cache for your use case, since it could lead to stale reads.
+- Add a state-management solution like MobX or Redux, depending on how much structure you want. Consider making a "Page" wrapper component that includes your provider and avoid using it in [_app.js](/pages/_app.js) - this will minimize your bundle size.
+- Paginate your dashboards and other data-rich views, this was not included here because your solution will be contingent on your choice in DB.
