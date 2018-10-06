@@ -5,7 +5,7 @@ CVE - Common Vulnerabilities and Exposures
 NOTE: Wrap the proptype with PropTypes.shape() when in use!
 We keep it in object form here for the purposes of testing
 */
-const PropType = {
+export const PropType = {
   name: PropTypes.string,
   cwe: PropTypes.string,
   threat_severity: PropTypes.string,

@@ -18,7 +18,8 @@ export default class CVE_PAGE extends React.Component {
   static async getInitialProps ({ req, res, query }) {
     let props = {}
     try {
-      const { id } = req ? req.params : query
+      // const { id } = req ? req.params : query
+      const { id } = query || (req || {}).params
       const cve = await axios
         .get(`${API(req)}/cve/${id}`)
         .then(res => res.data)
