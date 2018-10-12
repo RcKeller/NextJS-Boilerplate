@@ -7,7 +7,7 @@ API ROUTES
 These typically consume third party APIS and serve them
 securely to a same-origin source for security purposes
 */
-module.exports = (server, config) => {
+module.exports = (app, config) => {
   const { api } = config
   const { prefix, version } = api
 
@@ -19,5 +19,5 @@ module.exports = (server, config) => {
   API.get('*', (req, res) => res.status(404).json(null))
 
   // Prefix the API's routes
-  server.use(`/${prefix}/${version}`, API)
+  app.use(`/${prefix}/${version}`, API)
 }

@@ -2,13 +2,15 @@ const express = require('express')
 const https = require('https')
 const http = require('http')
 
-const HTTP = (server, config) => {
+const HTTP = (app, config) => {
   const { dev, ports } = config
   const port = dev ? ports.dev : ports.http
-  server.listen(port, (err) => {
-    if (err) throw err
-    console.log(`HTTP Ready: http://localhost:${port}`)
-  })
+  return http
+    .createServer(app)
+    .listen(port, (err) => {
+      if (err) throw err
+      console.log(`HTTP Ready: http://localhost:${port}`)
+    })
 }
 
 /*
@@ -19,13 +21,13 @@ unless you sign your own
 
 NOTE: Most developers use a reverse proxy (e.g. NGINX) for performance instead of this method
 */
-const HTTPS = (server, config) => {
+const HTTPS = (app, config) => {
   const { ports } = config
   const { key, cert } = require('openssl-self-signed-certificate')
 
   // HTTPS
   https
-    .createServer({ key, cert }, server)
+    .createServer({ key, cert }, app)
     .listen(ports.https, err => {
       if (err) throw err
       console.log(`> HTTPS Ready on ${ports.https}`)

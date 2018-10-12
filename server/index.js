@@ -4,22 +4,25 @@ const next = require('next')
 const express = require('express')
 const config = require('../config')
 const { Express, HTTP } = require('./setup')
-const { API, React } = require('./routes')
+const { API, React, Socket } = require('./routes')
 
 const ReactEngine = next({ dev: config.dev })
 ReactEngine
   .prepare()
   .then(() => {
     // Initialize express instance and configure parsers / sessionware
-    const server = express()
-    Express(server, config)
+    const app = express()
+    Express(app, config)
 
-    // Initialize routes - API, client pages, etc
-    API(server, config)
-    React(server, config, ReactEngine)
 
     // Serve content via HTTP or HTTPS
-    HTTP(server, config)
+    // Return that server instance so websockets can be set up
+    const server = HTTP(app, config)
+
+    // Initialize routes - API, client pages, etc
+    Socket(server, config)
+    API(app, config)
+    React(app, config, ReactEngine)
   })
   .catch(require('./exceptions/next'))
 

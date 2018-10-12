@@ -1,4 +1,5 @@
 module.exports = {
   API: require('./API'),
-  React: require('./React')
+  React: require('./React'),
+  Socket: require('./Socket')
 }
