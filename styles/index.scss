@@ -5,18 +5,12 @@ FONTS
 
 /*
 VENDOR STYLES
-SASS based libs (react-md, ag-grid) are configured locally
+SASS based libs (react-md, etc) are configured locally
 */
-<<<<<<< HEAD
-@import 'vendor/nprogress';
-@import 'vendor/react-md';
-@import 'vendor/ag-grid';
-=======
 @import 'vendor/normalize';
 @import 'vendor/nprogress';
 @import 'vendor/react-md';
 @import 'vendor/react-table';
->>>>>>> next-v7
 
 /*
 CUSTOM STYLES

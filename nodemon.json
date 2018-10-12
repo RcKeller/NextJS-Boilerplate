@@ -4,7 +4,8 @@
   "watch": [
     "server/",
     "config/",
-    "next.config.js"
+    "next.config.js",
+    "webpack.config.js"
   ],
   "ext": "js json"
 }
