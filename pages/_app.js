@@ -5,8 +5,8 @@ import Helmet from 'react-helmet'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 
-// import { NavBar, SidebarMenu, Footer } from 'components'
-import { Theme as UWPThemeProvider, getTheme } from 'react-uwp/Theme'
+import { ThemeWrapper } from 'components'
+import { getTheme } from 'react-uwp/Theme'
 import NavigationView from 'react-uwp/NavigationView'
 import SplitViewCommand from 'react-uwp/SplitViewCommand'
 
@@ -91,8 +91,17 @@ export default class AppWrapper extends App {
     return (
       <Container>
         <Helmet titleTemplate='%s - Vuln. Dashboard' />
-        <UWPThemeProvider
+        <ThemeWrapper
+          // style={{
+          //   padding: '20px 0',
+          //   minHeight: '100vh',
+          //   display: 'flex',
+          //   flexDirection: 'column',
+          //   alignItems: 'center',
+          //   justifyContent: 'space-around'
+          // }}
           theme={getTheme({
+            userAgent,
             themeName: 'light',
             accent: '#F25022',
             useFluentDesign: true,
@@ -100,7 +109,8 @@ export default class AppWrapper extends App {
           })}
         >
           <NavigationView
-            style={{ width: '100%', height: '100vh' }}
+            style={{ width: '100vw' }}
+            paneStyle={{ height: '100vh' }}
             pageTitle='Vulnerability Dashboard'
             autoResize
             // expandedWidth={300}
@@ -117,7 +127,7 @@ export default class AppWrapper extends App {
               <p style={{ textAlign: 'center' }}>{userAgent.slice(12)}...</p>
             </div> */}
           </NavigationView>
-        </UWPThemeProvider>
+        </ThemeWrapper>
       </Container>
     )
   }
