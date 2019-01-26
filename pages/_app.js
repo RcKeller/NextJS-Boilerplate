@@ -1,20 +1,17 @@
 import React from 'react'
 import App, { Container } from 'next/app'
+import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 
-import { FontIcon } from 'react-md'
-import { NavItem, NavBar, SidebarMenu, Footer } from 'components'
-import { Fabric } from 'office-ui-fabric-react/lib-commonjs/Fabric'
+// import { NavBar, SidebarMenu, Footer } from 'components'
+import { Theme as UWPThemeProvider, getTheme } from 'react-uwp/Theme'
+import NavigationView from 'react-uwp/NavigationView'
+import SplitViewCommand from 'react-uwp/SplitViewCommand'
 
 // DO NOT REMOVE - import root styles (done here to)
 import 'styles/index.scss'
-
-import PropTypes from 'prop-types'
-
-import ThemeWrapper from '../components/ThemeWrapper'
-import getTheme from 'react-uwp/styles/getTheme'
 
 import {
   Button,
@@ -36,87 +33,105 @@ export default class AppWrapper extends App {
     }
     return { pageProps, userAgent }
   }
+
+  static contextTypes = { theme: PropTypes.object }
+
+  navigationTopNodes = [
+    <SplitViewCommand label='Home' icon='Home' />,
+    <SplitViewCommand label='CVE Dashboard' icon='PreviewLink' />
+  ]
+
+  navigationBottomNode = [
+    <SplitViewCommand label='API Docs' icon={'Link'} />,
+    <SplitViewCommand label='Source Code' icon={'Code'} />
+  ]
   /*
   Page load - add NProgress bar
   Special thanks to this example:
   https: //phuongnq.me/2018-02-02-use-nprogress-with-nextjs/
   */
   componentWillMount () {
-    console.log('CWM')
     if (Router && NProgress) {
       Router.onRouteChangeStart = () => NProgress.start()
       Router.onRouteChangeComplete = () => NProgress.done()
       Router.onRouteChangeError = () => NProgress.done()
     }
   }
-  navItems = [
-    <NavItem
-      key='index'
-      href='/'
-      as='/'
-      primaryText='Home'
-      rightIcon={<FontIcon>home</FontIcon>}
-    />,
-    <NavItem
-      key='cve'
-      href='/cve/dashboard'
-      as='/cve/dashboard'
-      primaryText='CVE Dashboard'
-      rightIcon={<FontIcon>web</FontIcon>}
-    />,
-    <NavItem
-      key='source'
-      external
-      href='//github.com/RcKeller/NextJS-Boilerplate'
-      primaryText='Source Code'
-      rightIcon={<FontIcon>code</FontIcon>}
-    />,
-    <NavItem
-      key='docs'
-      external
-      href='//access.redhat.com/labs/securitydataapi/'
-      primaryText='API Docs'
-      rightIcon={<FontIcon>link</FontIcon>}
-    />
-  ]
+  // navItems = [
+  //   <NavItem
+  //     key='index'
+  //     href='/'
+  //     as='/'
+  //     primaryText='Home'
+  //     rightIcon={<FontIcon>home</FontIcon>}
+  //   />,
+  //   <NavItem
+  //     key='cve'
+  //     href='/cve/dashboard'
+  //     as='/cve/dashboard'
+  //     primaryText='CVE Dashboard'
+  //     rightIcon={<FontIcon>web</FontIcon>}
+  //   />,
+  //   <NavItem
+  //     key='source'
+  //     external
+  //     href='//github.com/RcKeller/NextJS-Boilerplate'
+  //     primaryText='Source Code'
+  //     rightIcon={<FontIcon>code</FontIcon>}
+  //   />,
+  //   <NavItem
+  //     key='docs'
+  //     external
+  //     href='//access.redhat.com/labs/securitydataapi/'
+  //     primaryText='API Docs'
+  //     rightIcon={<FontIcon>link</FontIcon>}
+  //   />
+  // ]
   render () {
     const { Component, pageProps, userAgent } = this.props
+    const baseStyle = {
+      margin: 10
+    }
+    const navigationTopNodes = [
+      <SplitViewCommand label='Home' icon='PrintLegacy' />,
+      <SplitViewCommand label='CVE Dashboard' icon='PrintLegacy' />
+    ]
+
+    const navigationBottomNode = [
+      <SplitViewCommand label='API Docs' icon={'\uE713'} />,
+      <SplitViewCommand label='Source Code' icon={'\uE161'} />
+    ]
+    
     return (
       <Container>
         <Helmet titleTemplate='%s - Vuln. Dashboard' />
-        <Fabric className='App'>
-          <div className='header'>
-            <NavBar />
-          </div>
-          <div className='body'>
-            <div className='content'>
-            <ThemeWrapper
-              style={{
-                padding: '20px 0',
-                minHeight: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'space-around'
-              }}
-              theme={getTheme({ userAgent })}
-            >
+        <UWPThemeProvider
+          theme={getTheme({
+            themeName: 'light',
+            accent: '#F25022',
+            useFluentDesign: true,
+            desktopBackgroundImage: 'https://www.react-uwp.com/HEAD/static/images/jennifer-bailey-10753.1DE91.jpg' // set global desktop background image
+          })}
+        >
+          <NavigationView
+            style={{ width: '100%', height: '100vh' }}
+            pageTitle='Vulnerability Dashboard'
+            autoResize
+            expandedWidth={300}
+            navigationTopNodes={this.navigationTopNodes}
+            navigationBottomNodes={this.navigationBottomNode}
+            focusNavigationNodeIndex={2}
+          >
+            <div>
+              <Component {...pageProps} />
               <Button>Test Button</Button>
               <DatePicker />
               <ColorPicker />
               <ProgressRing size={50} />
               <p style={{ textAlign: 'center' }}>{userAgent.slice(12)}...</p>
-            </ThemeWrapper>
-              <Component {...pageProps} />
             </div>
-            <div className='sidebar'>
-              <SidebarMenu />
-            </div>
-          </div>
-          <div className='footer'>
-            <Footer />
-          </div>
-        </Fabric>
+          </NavigationView>
+        </UWPThemeProvider>
       </Container>
     )
   }

@@ -1,7 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
 import { SearchBox } from 'office-ui-fabric-react/lib-commonjs/SearchBox'
-import './NavBar.scss'
 
 const NavBar = ({onChange, onSearch}) => (
   <div className='NavBar'>

@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Theme from 'react-uwp/Theme'
 
-export class ThemeWrapper extends Component {
+export class ThemeWrapper extends React.Component {
   render () {
     const { children, style, ...props } = this.props
     return (

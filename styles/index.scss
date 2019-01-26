@@ -15,11 +15,5 @@ SASS based libs (react-md, etc) are configured locally
 /*
 CUSTOM STYLES
 */
-// @import 'helpers';
-// @import 'layout';
-
-/*
-MS Fabric
-*/
-@import 'fabric';
-@import 'app';
+@import 'helpers';
+@import 'layout';
