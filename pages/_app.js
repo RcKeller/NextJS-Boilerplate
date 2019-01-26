@@ -1,5 +1,6 @@
 import React from 'react'
 import App, { Container } from 'next/app'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import Router from 'next/router'
@@ -36,13 +37,29 @@ export default class AppWrapper extends App {
   static contextTypes = { theme: PropTypes.object }
 
   navigationTopNodes = [
-    <SplitViewCommand label='Home' icon='Home' />,
-    <SplitViewCommand label='CVE Dashboard' icon='PreviewLink' />
+    <SplitViewCommand
+      label='Home'
+      icon='Home'
+      onClick={() => Router.push('/')}
+    />,
+    <SplitViewCommand
+      label='CVE Dashboard'
+      icon='PreviewLink'
+      onClick={() => Router.push('/cve/dashboard')}
+    />
   ]
 
   navigationBottomNode = [
-    <SplitViewCommand label='API Docs' icon={'Link'} />,
-    <SplitViewCommand label='Source Code' icon={'Code'} />
+    <SplitViewCommand
+      label='API Docs'
+      icon={'Link'}
+      onClick={(win = window) => win.location.href = '//access.redhat.com/labs/securitydataapi/'}
+    />,
+    <SplitViewCommand
+      label='Source Code'
+      icon='Code'
+      onClick={(win = window) => win.location.href = ''}
+    />
   ]
   /*
   Page load - add NProgress bar
@@ -109,23 +126,30 @@ export default class AppWrapper extends App {
           })}
         >
           <NavigationView
-            style={{ width: '100vw' }}
-            paneStyle={{ height: '100vh' }}
+            style={{
+              width: '100vw',
+              display: 'flex !important',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'space-around'
+            }}
+            paneStyle={{
+              height: '100vh'
+            }}
             pageTitle='Vulnerability Dashboard'
             autoResize
-            // expandedWidth={300}
             navigationTopNodes={this.navigationTopNodes}
             navigationBottomNodes={this.navigationBottomNode}
             focusNavigationNodeIndex={2}
           >
-            <Component {...pageProps} />
-            {/* <div>
+            <div>
+              <Component {...pageProps} />
               <Button>Test Button</Button>
               <DatePicker />
               <ColorPicker />
               <ProgressRing size={50} />
               <p style={{ textAlign: 'center' }}>{userAgent.slice(12)}...</p>
-            </div> */}
+            </div>
           </NavigationView>
         </ThemeWrapper>
       </Container>
