@@ -37,7 +37,8 @@
     "react-dom": "^16.7.0",
     "react-helmet": "^5.2.0",
     "react-md": "^1.9.2",
-    "react-table": "^6.8.6"
+    "react-table": "^6.8.6",
+    "react-uwp": "^1.2.31"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.3.0",

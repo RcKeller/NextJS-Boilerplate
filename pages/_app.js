@@ -11,18 +11,30 @@ import { Fabric } from 'office-ui-fabric-react/lib-commonjs/Fabric'
 // DO NOT REMOVE - import root styles (done here to)
 import 'styles/index.scss'
 
-// import { loadTheme } from 'office-ui-fabric-react'
-import { initializeIcons } from 'office-ui-fabric-react/lib-commonjs/Icons'
+import PropTypes from 'prop-types'
+
+import ThemeWrapper from '../components/ThemeWrapper'
+import getTheme from 'react-uwp/styles/getTheme'
+
+import {
+  Button,
+  ColorPicker,
+  DatePicker,
+  ProgressRing
+} from 'react-uwp'
 
 export default class AppWrapper extends App {
   // ENV: SSR
   static async getInitialProps ({ Component, router, ctx }) {
-    console.log(router, ctx)
+    console.log(ctx.req)
     let pageProps = {}
+    let userAgent = process.browser
+      ? navigator.userAgent
+      : ctx.req.headers['user-agent']
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
-    return { pageProps }
+    return { pageProps, userAgent }
   }
   /*
   Page load - add NProgress bar
@@ -68,7 +80,7 @@ export default class AppWrapper extends App {
     />
   ]
   render () {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, userAgent } = this.props
     return (
       <Container>
         <Helmet titleTemplate='%s - Vuln. Dashboard' />
@@ -78,6 +90,23 @@ export default class AppWrapper extends App {
           </div>
           <div className='body'>
             <div className='content'>
+            <ThemeWrapper
+              style={{
+                padding: '20px 0',
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-around'
+              }}
+              theme={getTheme({ userAgent })}
+            >
+              <Button>Test Button</Button>
+              <DatePicker />
+              <ColorPicker />
+              <ProgressRing size={50} />
+              <p style={{ textAlign: 'center' }}>{userAgent.slice(12)}...</p>
+            </ThemeWrapper>
               <Component {...pageProps} />
             </div>
             <div className='sidebar'>
