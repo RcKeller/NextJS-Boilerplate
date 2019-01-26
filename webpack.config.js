@@ -6,6 +6,8 @@ WEBPACK CONFIG
 const path = require('path')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
+const dir = (folder) => path.resolve(__dirname, folder)
+
 module.exports = (config, options) => {
   const { ANALYZE } = process.env
   const { isServer } = options
@@ -20,17 +22,17 @@ module.exports = (config, options) => {
     CLIENT-SIDE
     ES Module format (import/export syntax)
     */
-    pages: path.resolve(__dirname, 'pages/'),
-    containers: path.resolve(__dirname, 'containers/'),
-    components: path.resolve(__dirname, 'components/'),
-    styles: path.resolve(__dirname, 'styles/'),
-    enums: path.resolve(__dirname, 'enums/'),
+    pages: dir('pages/'),
+    containers: dir('containers/'),
+    components: dir('components/'),
+    styles: dir('styles/'),
+    enums: dir('enums/'),
     /*
     UNIVERSAL
     CommonJS format (module.exports/require)
     */
-    config: path.resolve(__dirname, 'config/'),
-    tools: path.resolve(__dirname, 'tools/') //  Named because 'util' is reserved
+    config: dir('config/'),
+    tools: dir('tools/') //  Named because 'util' is reserved
   })
   /*
   FILE / ASSET IMPORTS
