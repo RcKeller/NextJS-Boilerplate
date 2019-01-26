@@ -12,6 +12,7 @@
     "analyze": "cross-env ANALYZE=1 npm run build"
   },
   "dependencies": {
+    "@microsoft/load-themed-styles": "^1.8.55",
     "apicache": "^1.2.1",
     "auto-bind": "^1.2.1",
     "axios": "^0.18.0",
@@ -29,14 +30,14 @@
     "node-sass": "^4.11.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
+    "office-ui-fabric-react": "^6.129.4",
     "openssl-self-signed-certificate": "^1.1.6",
     "prop-types": "^15.6.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-helmet": "^5.2.0",
     "react-md": "^1.9.2",
-    "react-table": "^6.8.6",
-    "webpack-bundle-analyzer": "^3.0.3"
+    "react-table": "^6.8.6"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.3.0",
@@ -55,6 +56,10 @@
     "file-loader": "^2.0.0",
     "next-compose-plugins": "^2.1.1",
     "nodemon": "^1.18.9",
-    "url-loader": "^1.1.2"
+    "url-loader": "^1.1.2",
+    "webpack-bundle-analyzer": "^3.0.3"
+  },
+  "optionalDependencies": {
+    "cypress": "^3.1.4"
   }
 }

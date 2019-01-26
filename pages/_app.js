@@ -6,9 +6,12 @@ import NProgress from 'nprogress'
 
 import { NavigationDrawer, FontIcon } from 'react-md'
 import { NavItem } from 'components'
+import { Button } from 'office-ui-fabric-react/lib-commonjs/Button'
 
 // DO NOT REMOVE - import root styles (done here to)
 import 'styles/index.scss'
+
+// import { loadTheme } from 'office-ui-fabric-react'
 
 export default class AppWrapper extends App {
   // ENV: SSR
@@ -66,6 +69,7 @@ export default class AppWrapper extends App {
     return (
       <Container>
         <Helmet titleTemplate='%s - Vuln. Dashboard' />
+        <Button>hello</Button>
         <NavigationDrawer
           contentId='app'
           toolbarTitle='RedHat Vulnerability Dashboard'

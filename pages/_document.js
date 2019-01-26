@@ -1,4 +1,13 @@
 import Document, { Head, Main, NextScript } from 'next/document'
+import { configureLoadStyles } from '@microsoft/load-themed-styles'
+
+// Store registered styles in a variable used later for injection.
+let _allStyles = ''
+
+// Push styles into variables for injecting later.
+configureLoadStyles((styles) => {
+  _allStyles += styles
+})
 
 /*
 NOTE: THIS RENDERS ON THE SERVER. DO NOT USE REACT.
@@ -16,6 +25,7 @@ export default class DocumentWrapper extends Document {
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
           <link rel='icon' type='image/x-icon' href='static/favicon.ico' />
+          <style>${ _allStyles}</style>
         </Head>
         <body>
           <Main />
