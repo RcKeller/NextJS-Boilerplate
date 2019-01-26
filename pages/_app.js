@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 
-import { NavigationDrawer, FontIcon } from 'react-md'
+import { FontIcon } from 'react-md'
 import { NavItem, NavBar, SidebarMenu, Footer } from 'components'
 import { Fabric } from 'office-ui-fabric-react/lib-commonjs/Fabric'
 
@@ -12,10 +12,12 @@ import { Fabric } from 'office-ui-fabric-react/lib-commonjs/Fabric'
 import 'styles/index.scss'
 
 // import { loadTheme } from 'office-ui-fabric-react'
+import { initializeIcons } from 'office-ui-fabric-react/lib-commonjs/Icons'
 
 export default class AppWrapper extends App {
   // ENV: SSR
   static async getInitialProps ({ Component, router, ctx }) {
+    console.log(router, ctx)
     let pageProps = {}
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
@@ -28,6 +30,7 @@ export default class AppWrapper extends App {
   https: //phuongnq.me/2018-02-02-use-nprogress-with-nextjs/
   */
   componentWillMount () {
+    console.log('CWM')
     if (Router && NProgress) {
       Router.onRouteChangeStart = () => NProgress.start()
       Router.onRouteChangeComplete = () => NProgress.done()

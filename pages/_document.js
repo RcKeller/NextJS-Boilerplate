@@ -3,7 +3,6 @@ import { configureLoadStyles } from '@microsoft/load-themed-styles'
 
 // Store registered styles in a variable used later for injection.
 let _allStyles = ''
-
 // Push styles into variables for injecting later.
 configureLoadStyles((styles) => {
   _allStyles += styles

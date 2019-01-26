@@ -9,7 +9,7 @@ const NavBar = ({onChange, onSearch}) => (
       <strong>RedHat Vulnerability Dashboard</strong>
     </div>
     <div className='searchbox'>
-      <SearchBox labelText='Search'
+      <SearchBox placeholder='Search'
         onChange={(newValue) => console.log('SearchBox onChange fired: ' + newValue)}
         onSearch={(newValue) => console.log('SearchBox onSearch fired: ' + newValue)}
       />
