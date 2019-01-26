@@ -9,11 +9,7 @@
     "build": "cross-env NODE_ENV=production next build",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "lint": "node node_modules/eslint/bin/eslint.js .",
-    "analyze": "cross-env ANALYZE=1 npm run build",
-    "test": "cross-env NODE_ENV=test jest",
-    "test:single": "cross-env NODE_ENV=test jest -t",
-    "test:coverage": "cross-env NODE_ENV=test jest --coverage",
-    "test:watch": "cross-env NODE_ENV=test jest --coverage"
+    "analyze": "cross-env ANALYZE=1 npm run build"
   },
   "dependencies": {
     "apicache": "^1.2.1",
@@ -59,7 +55,6 @@
     "file-loader": "^2.0.0",
     "next-compose-plugins": "^2.1.1",
     "nodemon": "^1.18.9",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.29.0"
+    "url-loader": "^1.1.2"
   }
 }
