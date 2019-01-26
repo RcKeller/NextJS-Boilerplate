@@ -23,7 +23,6 @@ import {
 export default class AppWrapper extends App {
   // ENV: SSR
   static async getInitialProps ({ Component, router, ctx }) {
-    console.log(ctx.req)
     let pageProps = {}
     let userAgent = process.browser
       ? navigator.userAgent
@@ -89,19 +88,6 @@ export default class AppWrapper extends App {
   // ]
   render () {
     const { Component, pageProps, userAgent } = this.props
-    const baseStyle = {
-      margin: 10
-    }
-    const navigationTopNodes = [
-      <SplitViewCommand label='Home' icon='PrintLegacy' />,
-      <SplitViewCommand label='CVE Dashboard' icon='PrintLegacy' />
-    ]
-
-    const navigationBottomNode = [
-      <SplitViewCommand label='API Docs' icon={'\uE713'} />,
-      <SplitViewCommand label='Source Code' icon={'\uE161'} />
-    ]
-    
     return (
       <Container>
         <Helmet titleTemplate='%s - Vuln. Dashboard' />
@@ -117,19 +103,19 @@ export default class AppWrapper extends App {
             style={{ width: '100%', height: '100vh' }}
             pageTitle='Vulnerability Dashboard'
             autoResize
-            expandedWidth={300}
+            // expandedWidth={300}
             navigationTopNodes={this.navigationTopNodes}
             navigationBottomNodes={this.navigationBottomNode}
             focusNavigationNodeIndex={2}
           >
-            <div>
-              <Component {...pageProps} />
+            <Component {...pageProps} />
+            {/* <div>
               <Button>Test Button</Button>
               <DatePicker />
               <ColorPicker />
               <ProgressRing size={50} />
               <p style={{ textAlign: 'center' }}>{userAgent.slice(12)}...</p>
-            </div>
+            </div> */}
           </NavigationView>
         </UWPThemeProvider>
       </Container>
