@@ -1,7 +1,5 @@
 # Version control
 node_modules/
-package-lock.json
-yarn.lock
 # Config files
 config/*.js
 config/*.json
