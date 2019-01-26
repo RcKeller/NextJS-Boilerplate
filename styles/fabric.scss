@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+/** Main Layout rules */
+.App {
+  min-height: 100vh;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.App .body {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.body .sidebar {
+  order: -1;
+}
+
+.body .content {
+  flex: 1;
+}
+
+.body .sidebar {
+  max-width: 12em;
+  flex: 0 0 12em;
+}
+
+.App .header {
+  height: 4em;
+}
+
+.App .footer {
+  height: 4em;
+}
+
+/** Text */
+.text-red {
+  color: red;
+}

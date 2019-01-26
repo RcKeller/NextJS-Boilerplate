@@ -5,8 +5,8 @@ import Router from 'next/router'
 import NProgress from 'nprogress'
 
 import { NavigationDrawer, FontIcon } from 'react-md'
-import { NavItem } from 'components'
-import { Button } from 'office-ui-fabric-react/lib-commonjs/Button'
+import { NavItem, NavBar, SidebarMenu, Footer } from 'components'
+import { Fabric } from 'office-ui-fabric-react/lib-commonjs/Fabric'
 
 // DO NOT REMOVE - import root styles (done here to)
 import 'styles/index.scss'
@@ -69,18 +69,22 @@ export default class AppWrapper extends App {
     return (
       <Container>
         <Helmet titleTemplate='%s - Vuln. Dashboard' />
-        <Button>hello</Button>
-        <NavigationDrawer
-          contentId='app'
-          toolbarTitle='RedHat Vulnerability Dashboard'
-          drawerTitle='Navigation'
-          mobileDrawerType={NavigationDrawer.DrawerTypes.TEMPORARY}
-          tabletDrawerType={NavigationDrawer.DrawerTypes.FLOATING}
-          desktopDrawerType={NavigationDrawer.DrawerTypes.FLOATING}
-          navItems={this.navItems}
-        >
-          <Component {...pageProps} />
-        </NavigationDrawer>
+        <Fabric className='App'>
+          <div className='header'>
+            <NavBar />
+          </div>
+          <div className='body'>
+            <div className='content'>
+              <Component {...pageProps} />
+            </div>
+            <div className='sidebar'>
+              <SidebarMenu />
+            </div>
+          </div>
+          <div className='footer'>
+            <Footer />
+          </div>
+        </Fabric>
       </Container>
     )
   }

@@ -9,11 +9,17 @@ SASS based libs (react-md, etc) are configured locally
 */
 @import 'vendor/normalize';
 @import 'vendor/nprogress';
-@import 'vendor/react-md';
+// @import 'vendor/react-md';
 @import 'vendor/react-table';
 
 /*
 CUSTOM STYLES
 */
-@import 'helpers';
-@import 'layout';
+// @import 'helpers';
+// @import 'layout';
+
+/*
+MS Fabric
+*/
+@import 'fabric';
+@import 'app';
